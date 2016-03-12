@@ -1,5 +1,5 @@
 class Nul_piece
-  attr_reader :icon
+  attr_reader :icon, :color
 
   def initialize
     @icon = "   "

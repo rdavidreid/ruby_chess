@@ -44,87 +44,87 @@ class Piece
   #   end
   # end
 
-
-  def obstructed?(current_pos,other_pos,board)
-    tester = other_pos
-    # puts tester
-    # sleep 2
-
-    # (-1..1).each do |i|
-    #   (-1..1).each do |j|
-
-
-    if other_pos[0] > current_pos[0]              #New position is below us
-      if other_pos[1] > current_pos[1]            #new position is on our right--bishop move
-        tester[0] -= 1
-        tester[1] -= 1
-        until tester == current_pos
-          # puts board.grid[tester[0]][tester[1]]
-          # puts !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
-          # sleep 2
-          return false if !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
-          # return false if the piece at tester is not a nul piece
-          tester[0] -= 1
-          tester[1] -= 1
-        end
-
-      elsif other_pos[1] < current_pos[1]         #new position on our left
-        until tester == current_pos
-          tester[0] -= 1
-          tester[1] += 1
-          return false if !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
-        end
-      elsif other_pos[1] == current_pos[1]             #new position is on our level horizontally
-        until tester == current_pos
-          tester[1] -= 1
-          return false if !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
-        end
-      end
-
-    elsif other_pos[0] < current_pos[0]           #New position is above us
-      if other_pos[1] > current_pos[1]            #new position is on our right
-        until tester == current_pos
-          tester[0] += 1
-          tester[1] -= 1
-          return false if !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
-        end
-
-      elsif other_pos[1] < current_pos[1]         #new position on our left
-        until tester == current_pos
-          tester[0] += 1
-          tester[1] += 1
-          return false if !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
-        end
-
-      else                                        #new position is on our level horizontally
-        until tester == current_pos
-          tester[0] += 1
-          return false if !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
-        end
-      end
-
-    else                                          #new position is at our level vertically
-      if other_pos[1] > current_pos[1]            #new position is on our right
-        until tester == current_pos
-          tester[1] -= 1
-          return false if !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
-        end
-
-      elsif other_pos[1] < current_pos[1]         #new position on our left
-        until tester == current_pos
-          tester[1] += 1
-          return false if !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
-        end
-
-      end
-    end
-
-    return false if board.grid[other_pos[0]][other_pos[1]].color == self.color
-    # puts "hello"
-    # sleep(2)
-    true
-
-  end
+  #
+  # def obstructed?(current_pos,other_pos,board)
+  #   tester = other_pos
+  #   # puts tester
+  #   # sleep 2
+  #
+  #   # (-1..1).each do |i|
+  #   #   (-1..1).each do |j|
+  #
+  # 
+  #   if other_pos[0] > current_pos[0]              #New position is below us
+  #     if other_pos[1] > current_pos[1]            #new position is on our right--bishop move
+  #       tester[0] -= 1
+  #       tester[1] -= 1
+  #       until tester == current_pos
+  #         # puts board.grid[tester[0]][tester[1]]
+  #         # puts !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
+  #         # sleep 2
+  #         return false if !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
+  #         # return false if the piece at tester is not a nul piece
+  #         tester[0] -= 1
+  #         tester[1] -= 1
+  #       end
+  #
+  #     elsif other_pos[1] < current_pos[1]         #new position on our left
+  #       until tester == current_pos
+  #         tester[0] -= 1
+  #         tester[1] += 1
+  #         return false if !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
+  #       end
+  #     elsif other_pos[1] == current_pos[1]             #new position is on our level horizontally
+  #       until tester == current_pos
+  #         tester[1] -= 1
+  #         return false if !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
+  #       end
+  #     end
+  #
+  #   elsif other_pos[0] < current_pos[0]           #New position is above us
+  #     if other_pos[1] > current_pos[1]            #new position is on our right
+  #       until tester == current_pos
+  #         tester[0] += 1
+  #         tester[1] -= 1
+  #         return false if !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
+  #       end
+  #
+  #     elsif other_pos[1] < current_pos[1]         #new position on our left
+  #       until tester == current_pos
+  #         tester[0] += 1
+  #         tester[1] += 1
+  #         return false if !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
+  #       end
+  #
+  #     else                                        #new position is on our level horizontally
+  #       until tester == current_pos
+  #         tester[0] += 1
+  #         return false if !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
+  #       end
+  #     end
+  #
+  #   else                                          #new position is at our level vertically
+  #     if other_pos[1] > current_pos[1]            #new position is on our right
+  #       until tester == current_pos
+  #         tester[1] -= 1
+  #         return false if !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
+  #       end
+  #
+  #     elsif other_pos[1] < current_pos[1]         #new position on our left
+  #       until tester == current_pos
+  #         tester[1] += 1
+  #         return false if !board.grid[tester[0]][tester[1]].is_a?(Nul_piece)
+  #       end
+  #
+  #     end
+  #   end
+  #
+  #   return false if board.grid[other_pos[0]][other_pos[1]].color == self.color
+  #   # puts "hello"
+  #   # sleep(2)
+  #   true
+  #
+  # end
 
 
   private

@@ -9,6 +9,7 @@ class Board
     @grid = Array.new(8){Array.new(8){Nul_piece.new}}
     @grid[0][0] = Queen.new("white", self)
     @grid[0][5] = Queen.new("black", self)
+    @grid[0][6] = Queen.new("white", self)
   end
 
   def in_bounds?(pos)
