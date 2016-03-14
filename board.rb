@@ -7,17 +7,19 @@ class Board
 
   def initialize
     @grid = Array.new(8){Array.new(8){Nul_piece.new}}
-    @grid[0][0] = Queen.new("white", self)
-    @grid[0][5] = Queen.new("black", self)
-    @grid[0][6] = Queen.new("white", self)
+    @grid[7][3] = Queen.new("black", self)
+    @grid[0][4] = Queen.new("white", self)
+    @grid[7][6] = Bishop.new("black", self)
+    @grid[7][7] = Rook.new("black", self)
+    @grid[4][4] = King.new("black",self)
+    @grid[1][1] = Knight.new("white",self)
+    @grid[1][2] = Pawn.new("white",self)
   end
 
   def in_bounds?(pos)
     return false if pos.min < 0 || pos.max > 7
     true
   end
-
-  #assume start & end pos == array for now
 
   def move(start_pos,end_pos)
     selected_piece = @grid[start_pos[0]][start_pos[1]]

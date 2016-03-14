@@ -1,31 +1,27 @@
-require_relative 'piece.rb'
+require_relative 'sliding_piece.rb'
 
-class Bishop < Piece
+class Bishop < Sliding_Piece
 
-  def initialize(color)
-    super(color)
-    @icon = " ♝ "
+  def initialize(color,board)
+    super(color,board)
+    if color == "white"
+      @icon = " ♝ "
+    else
+      @icon = " ♗ "
+    end
+
     @slider = true
   end
 
   def moves(current_pos)
-    moves = []
-    (-7..7).each do |i|
-      (-7..7).each do |j|
+    arr = []
 
-        if i.abs == j.abs
-          moves << [(current_pos[0] + i),(current_pos[1] + j)]
-        end
-      end
-    end
-    moves
+    arr += diagonal_moves(current_pos,  1,  1)
+    arr += diagonal_moves(current_pos,  1, -1)
+    arr += diagonal_moves(current_pos, -1,  1)
+    arr += diagonal_moves(current_pos, -1, -1)
+
+    return arr
   end
-
-
-  # def valid_moves(board,current_pos)
-  #   all_moves = moves(current_pos)
-  #
-  #
-  # end
 
 end

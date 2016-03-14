@@ -4,18 +4,6 @@ class Sliding_Piece < Piece
 
   private
 
-  # def diagonal_moves(current_pos, board)
-  #   moves = []
-  #   (-7..7).each do |i|
-  #     (-7..7).each do |j|
-  #       if i.abs == j.abs
-  #         moves << [(current_pos[0] + i),(current_pos[1] + j)]
-  #       end
-  #     end
-  #   end
-  #   moves
-  # end
-
   def diagonal_moves(current_pos, mult1,mult2)
     moves = []
     (1..7).each do |a|
@@ -55,7 +43,6 @@ class Sliding_Piece < Piece
     moves = []
     (0..7).each do |a|
       (0..7).each do |b|
-        # debugger
 
         # break if a == 0 && b == 0
         k = a * mult1
@@ -83,31 +70,5 @@ class Sliding_Piece < Piece
 
     return moves
   end
-
-  # def hmoves(current_pos, mult)
-  #   debugger
-  #   moves = []
-  #
-  #   (0..7).each do |a|
-  #     j = a * mult
-  #
-  #     if (current_pos[1] + j) > 7 || (current_pos[1] + j) < 0
-  #       return moves
-  #
-  #     elsif @board.grid[current_pos[0]][(current_pos[1] + j)].class == Nul_piece
-  #       moves << [(current_pos[0]), (current_pos[1] + j)]
-  #
-  #     elsif @board.grid[current_pos[0]][(current_pos[1] + j)].color == self.color
-  #       return moves
-  #
-  #     elsif @board.grid[current_pos[0]][(current_pos[1] + j)].color != nil
-  #       moves << [ (current_pos[0]), (current_pos[1] + j)]
-  #       return moves
-  #     end
-  #
-  #   end
-  #   debugger
-  #   return moves
-  # end
 
 end
