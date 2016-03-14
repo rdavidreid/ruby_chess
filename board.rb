@@ -7,19 +7,34 @@ class Board
 
   def initialize
     @grid = Array.new(8){Array.new(8){Nul_piece.new}}
-    @grid[7][3] = Queen.new("black", self)
-    @grid[0][4] = Queen.new("white", self)
-    @grid[7][6] = Bishop.new("black", self)
-    @grid[7][7] = Rook.new("black", self)
-    @grid[4][4] = King.new("black",self)
-    @grid[1][1] = Knight.new("white",self)
-    @grid[1][2] = Pawn.new("white",self)
+    populate_rear_row(7, "black", self)
+    populate_rear_row(0, "white", self)
+    populate_pawns(1, "white", self)
+    populate_pawns(6, "black", self)
   end
 
   def in_bounds?(pos)
     return false if pos.min < 0 || pos.max > 7
     true
   end
+
+  def populate_rear_row(row,color,board)
+    @grid[row][7] = Rook.new(color, board)
+    @grid[row][6] = Knight.new(color, board)
+    @grid[row][5] = Bishop.new(color, board)
+    @grid[row][4] = King.new(color, board)
+    @grid[row][3] = Queen.new(color, board)
+    @grid[row][2] = Bishop.new(color, board)
+    @grid[row][1] = Knight.new(color, board)
+    @grid[row][0] = Rook.new(color, board)
+  end
+
+  def populate_pawns(row, color, board)
+    @grid[row].map! do |cell|
+      cell = Pawn.new(color,board)
+    end
+  end
+
 
   def move(start_pos,end_pos)
     selected_piece = @grid[start_pos[0]][start_pos[1]]
