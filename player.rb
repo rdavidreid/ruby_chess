@@ -12,7 +12,7 @@ class Player
     until result
       system('clear')
       @display.render
-      puts "player #{self.color}s turn!"
+      puts "#{self.color}'s turn"
       result = @display.get_input
     end
     result

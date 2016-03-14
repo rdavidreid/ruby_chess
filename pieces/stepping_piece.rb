@@ -65,15 +65,17 @@ class Stepping_Piece < Piece
     end
 
     # Jump piece ahead
-    if @board.grid[(current_pos[0] + ydir)][(current_pos[1] + 1)].color != self.color &&
-       @board.grid[(current_pos[0] + ydir)][(current_pos[1] + 1)].class != Nul_piece
-          moves << [ (current_pos[0] + ydir),(current_pos[1] + 1) ]
-    end
+    if @board.grid[(current_pos[0] + ydir)][(current_pos[1] + 1)]
+      if @board.grid[(current_pos[0] + ydir)][(current_pos[1] + 1)].color != self.color &&
+         @board.grid[(current_pos[0] + ydir)][(current_pos[1] + 1)].class != Nul_piece
+            moves << [ (current_pos[0] + ydir),(current_pos[1] + 1) ]
+      end
 
-    # Jump piece ahead
-    if @board.grid[(current_pos[0] + ydir)][(current_pos[1] - 1)].color != self.color &&
-       @board.grid[(current_pos[0] + ydir)][(current_pos[1] - 1)].class != Nul_piece
-          moves << [ (current_pos[0] + ydir),(current_pos[1] - 1) ]
+      # Jump piece ahead
+      if @board.grid[(current_pos[0] + ydir)][(current_pos[1] - 1)].color != self.color &&
+         @board.grid[(current_pos[0] + ydir)][(current_pos[1] - 1)].class != Nul_piece
+            moves << [ (current_pos[0] + ydir),(current_pos[1] - 1) ]
+      end
     end
 
     return moves

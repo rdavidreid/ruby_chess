@@ -50,7 +50,7 @@ class Game
       @board.move(pos, pos2)
       switch_player
     end
-    puts "#{winner} player won!"
+    puts "#{winner} won!"
 
   end
 
