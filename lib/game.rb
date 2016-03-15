@@ -8,7 +8,7 @@ class Game
 
 
   def initialize
-    @board = Board.new
+    @board = Board.new(true)
     @display = Display.new(@board)
     @cursor_pos = [0,0]
     @player_black = Player.new(@display, "white")
@@ -28,7 +28,7 @@ class Game
           # = piece_at_pos(pos) = board fetches piece at given position method
           piece_at_pos = @board.find_piece(pos)
           # array_of_moves = piece_at_pos.valid_moves(@board,pos)
-          array_of_moves = piece_at_pos.valid_moves(@board,pos,@current_player)
+          array_of_moves = piece_at_pos.valid_moves(@board,pos,@current_player, other_player)
           # update display render with the array of valid moves
           @display.highlighted_pos = array_of_moves
           pos2 = @current_player.move
@@ -48,6 +48,7 @@ class Game
       end
 
       @board.move(pos, pos2)
+      check_status = @board.in_check?(@current_player,other_player)
       switch_player
     end
     puts "#{winner} won!"
@@ -56,6 +57,13 @@ class Game
 
   def current_player
     @current_player
+  end
+
+  def other_player
+    if @current_player == @player_white
+      return @player_black
+    end
+    @player_white
   end
 
   def switch_player

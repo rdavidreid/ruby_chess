@@ -2,7 +2,7 @@ require_relative 'piece.rb'
 
 class Sliding_Piece < Piece
 
-  private
+  # private
 
   def diagonal_moves(current_pos, mult1,mult2)
     moves = []

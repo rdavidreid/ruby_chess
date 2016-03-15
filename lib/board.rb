@@ -5,12 +5,14 @@ class Board
   attr_accessor :grid
 
 
-  def initialize
+  def initialize(populate)
     @grid = Array.new(8){Array.new(8){Nul_piece.new}}
-    populate_rear_row(7, "black", self)
-    populate_rear_row(0, "white", self)
-    populate_pawns(1, "white", self)
-    populate_pawns(6, "black", self)
+    if populate == true
+      populate_rear_row(7, "black", self)
+      populate_rear_row(0, "white", self)
+      populate_pawns(1, "white", self)
+      populate_pawns(6, "black", self)
+    end
   end
 
   def in_bounds?(pos)
@@ -56,6 +58,81 @@ class Board
 
   def find_piece(pos)
     @grid[pos[0]][pos[1]]
+  end
+
+  # def in_check?(player,opponent)
+  #   hostile_moves = []
+  #   king_pos = ""
+  #
+  #   @grid.each_with_index do |row, row_idx|
+  #     row.each_with_index do |cell, col_idx|
+  #
+  #       if cell.class == King && cell.color == player.color
+  #         king_pos = [row_idx,col_idx]
+  #       elsif cell.color != player.color && cell.color != 'unique'
+  #         # have to use all moves here. valid moves will cause stack overflow
+  #         hostile_moves += cell.all_moves(self,[row_idx,col_idx],opponent,player)
+  #
+  #       end
+  #
+  #     end
+  #   end
+  #
+  #   return hostile_moves.include?(king_pos)
+  # end
+
+  def find_king(color)
+    @grid.each_with_index do |row, row_idx|
+      row.each_with_index do |cell, col_idx|
+        if cell.class == King && cell.color == color
+          return [row_idx,col_idx]
+        end
+      end
+    end
+  end
+
+
+  def in_check?(player,opponent)
+    king_pos = find_king(player.color)
+
+    @grid.each_with_index do |row, row_idx|
+      row.each_with_index do |cell, col_idx|
+
+        if cell.color != player.color && cell.color != 'unique'
+          if cell.moves([row_idx,col_idx]).include?(king_pos)
+            return true
+          end
+        end
+
+      end
+    end
+
+    return false
+  end
+
+
+
+  def checkmate?(player,opponent)
+    if in_check?(player,opponent)
+      return true
+    end
+    return false
+  end
+
+  def deep_dup
+    new_board = Board.new(false)
+
+    @grid.each_with_index do |row, row_idx|
+      row.each_with_index do |cell, col_idx|
+
+        if cell.class != Nul_piece
+          new_board.grid[row_idx][col_idx] = cell.class.new(cell.color, new_board)
+        end
+
+      end
+    end
+
+    return new_board
   end
 
 end
