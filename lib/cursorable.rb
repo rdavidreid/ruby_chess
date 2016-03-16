@@ -46,7 +46,6 @@ module Cursorable
       update_pos(MOVES[key])
       nil
     else
-      puts key
     end
   end
 

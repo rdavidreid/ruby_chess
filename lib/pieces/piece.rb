@@ -11,7 +11,7 @@ class Piece
   end
 
   def valid_moves(board, current_pos, player, other_player)
-    
+
     if @board.grid[current_pos[0]][current_pos[1]].color != player.color
       return []
     end
@@ -46,6 +46,7 @@ class Piece
     if dup_board.in_check?(player, opponent)
       return true
     end
+
     return false
   end
 

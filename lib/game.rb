@@ -6,7 +6,6 @@ class Game
   include Cursorable
   attr_reader :cursor_pos
 
-
   def initialize
     @board = Board.new(true)
     @display = Display.new(@board)
@@ -29,16 +28,13 @@ class Game
           end
 
           pos = @current_player.move(msg)
+
           @display.selected = pos
 
-          # = piece_at_pos(pos) = board fetches piece at given position method
           piece_at_pos = @board.find_piece(pos)
-          # array_of_moves = piece_at_pos.valid_moves(@board,pos)
           array_of_moves = piece_at_pos.valid_moves(@board,pos,@current_player, other_player)
-          # update display render with the array of valid moves
           @display.highlighted_pos = array_of_moves
           pos2 = @current_player.move(msg)
-
 
           # throw error unless array_of_moves.include?(pos2)
           unless array_of_moves.include?(pos2)
@@ -84,24 +80,6 @@ class Game
 
   def game_over?
     @board.checkmate?(@current_player,other_player)
-  end
-
-  def blackKingTaken
-    @board.grid.each do |col|
-      col.each do |cell|
-        return false if cell.color == "black" && cell.class == King
-      end
-    end
-    return true
-  end
-
-  def whiteKingTaken
-    @board.grid.each do |col|
-      col.each do |cell|
-        return false if cell.color == "white" && cell.class == King
-      end
-    end
-    return true
   end
 
 end

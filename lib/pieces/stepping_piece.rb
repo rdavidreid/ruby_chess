@@ -49,12 +49,12 @@ class Stepping_Piece < Piece
 
     # first move, two spaces ahead
     if self.color == "white" && current_pos[0] == 1
-      if @board.grid[(current_pos[0] + (ydir * 2))][current_pos[1]].color != self.color
+      if @board.grid[(current_pos[0] + (ydir * 2))][current_pos[1]].color == 'unique'
         moves << [(current_pos[0] + (ydir * 2)),current_pos[1]]
       end
 
     elsif self.color == "black" && current_pos[0] == 6
-      if @board.grid[(current_pos[0] + (ydir * 2))][current_pos[1]].color != self.color
+      if @board.grid[(current_pos[0] + (ydir * 2))][current_pos[1]].color == 'unique'
         moves << [ (current_pos[0] + (ydir * 2)),current_pos[1] ]
       end
     end
@@ -66,12 +66,16 @@ class Stepping_Piece < Piece
 
     # Jump piece ahead
     if @board.grid[(current_pos[0] + ydir)][(current_pos[1] + 1)]
+
       if @board.grid[(current_pos[0] + ydir)][(current_pos[1] + 1)].color != self.color &&
          @board.grid[(current_pos[0] + ydir)][(current_pos[1] + 1)].class != Nul_piece
             moves << [ (current_pos[0] + ydir),(current_pos[1] + 1) ]
       end
+    end
 
       # Jump piece ahead
+    if @board.grid[(current_pos[0] + ydir)][(current_pos[1] - 1)]
+
       if @board.grid[(current_pos[0] + ydir)][(current_pos[1] - 1)].color != self.color &&
          @board.grid[(current_pos[0] + ydir)][(current_pos[1] - 1)].class != Nul_piece
             moves << [ (current_pos[0] + ydir),(current_pos[1] - 1) ]
