@@ -7,12 +7,13 @@ class Player
     @color = color
   end
 
-  def move
+  def move(msg)
     result = nil
     until result
       system('clear')
       @display.render
       puts "#{self.color}'s turn"
+      puts msg
       result = @display.get_input
     end
     result

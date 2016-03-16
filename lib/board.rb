@@ -60,27 +60,6 @@ class Board
     @grid[pos[0]][pos[1]]
   end
 
-  # def in_check?(player,opponent)
-  #   hostile_moves = []
-  #   king_pos = ""
-  #
-  #   @grid.each_with_index do |row, row_idx|
-  #     row.each_with_index do |cell, col_idx|
-  #
-  #       if cell.class == King && cell.color == player.color
-  #         king_pos = [row_idx,col_idx]
-  #       elsif cell.color != player.color && cell.color != 'unique'
-  #         # have to use all moves here. valid moves will cause stack overflow
-  #         hostile_moves += cell.all_moves(self,[row_idx,col_idx],opponent,player)
-  #
-  #       end
-  #
-  #     end
-  #   end
-  #
-  #   return hostile_moves.include?(king_pos)
-  # end
-
   def find_king(color)
     @grid.each_with_index do |row, row_idx|
       row.each_with_index do |cell, col_idx|
@@ -110,13 +89,21 @@ class Board
     return false
   end
 
-
-
   def checkmate?(player,opponent)
     if in_check?(player,opponent)
+      @grid.each_with_index do |row, row_idx|
+        row.each_with_index do |cell, col_idx|
+
+          if cell.color == player.color
+            return false if cell.valid_moves(self, [row_idx,col_idx], player, opponent) != []
+          end
+
+        end
+      end
       return true
+    else
+      return false
     end
-    return false
   end
 
   def deep_dup

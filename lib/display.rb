@@ -40,7 +40,8 @@ class Display
         end
         background_toggle = !background_toggle
       end
-      puts
+      puts ""
+
     end
     nil
 

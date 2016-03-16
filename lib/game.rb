@@ -22,7 +22,13 @@ class Game
 
       until good_input
         begin
-          pos = @current_player.move
+          msg = ""
+
+          if @board.in_check?(@current_player,other_player)
+            msg =  "#{@current_player.color} is in check!"
+          end
+
+          pos = @current_player.move(msg)
           @display.selected = pos
 
           # = piece_at_pos(pos) = board fetches piece at given position method
@@ -31,9 +37,10 @@ class Game
           array_of_moves = piece_at_pos.valid_moves(@board,pos,@current_player, other_player)
           # update display render with the array of valid moves
           @display.highlighted_pos = array_of_moves
-          pos2 = @current_player.move
-          # throw error unless array_of_moves.include?(pos2)
+          pos2 = @current_player.move(msg)
 
+
+          # throw error unless array_of_moves.include?(pos2)
           unless array_of_moves.include?(pos2)
             @display.selected = nil
             @display.highlighted_pos = nil
@@ -48,10 +55,11 @@ class Game
       end
 
       @board.move(pos, pos2)
-      check_status = @board.in_check?(@current_player,other_player)
+      # check_status = @board.in_check?(@current_player,other_player)
       switch_player
     end
-    puts "#{winner} won!"
+
+    puts "#{other_player.color} won!"
 
   end
 
@@ -75,10 +83,7 @@ class Game
   end
 
   def game_over?
-    if blackKingTaken || whiteKingTaken
-      return true
-    end
-    false
+    @board.checkmate?(@current_player,other_player)
   end
 
   def blackKingTaken
@@ -97,11 +102,6 @@ class Game
       end
     end
     return true
-  end
-
-  def winner
-    return "black" if whiteKingTaken
-    return "white"
   end
 
 end

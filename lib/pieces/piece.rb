@@ -11,7 +11,7 @@ class Piece
   end
 
   def valid_moves(board, current_pos, player, other_player)
-    # debugger
+    
     if @board.grid[current_pos[0]][current_pos[1]].color != player.color
       return []
     end

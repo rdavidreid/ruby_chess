@@ -6,7 +6,7 @@ class Nul_piece
     @color = "unique"
   end
 
-  def valid_moves(board, pos, other)
+  def valid_moves(board, pos, player, other)
     []
   end
 
