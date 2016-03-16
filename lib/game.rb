@@ -45,6 +45,7 @@ class Game
             @display.selected = nil
             @display.highlighted_pos = nil
             puts "not valid move!"
+            sleep(1)
             redo
           end
           good_input = true
@@ -55,12 +56,11 @@ class Game
       end
 
       @board.move(pos, pos2)
-      # check_status = @board.in_check?(@current_player,other_player)
+      @board.pawn_promotion
       switch_player
     end
 
     puts "#{other_player.color} won!"
-
   end
 
   def current_player

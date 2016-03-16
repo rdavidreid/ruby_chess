@@ -4,7 +4,6 @@ require_relative 'manifest.rb'
 class Board
   attr_accessor :grid
 
-
   def initialize(populate)
     @grid = Array.new(8){Array.new(8){Nul_piece.new}}
     if populate == true
@@ -37,14 +36,12 @@ class Board
     end
   end
 
-
   def move(start_pos,end_pos)
     selected_piece = @grid[start_pos[0]][start_pos[1]]
     selected_destination = @grid[end_pos[0]][end_pos[1]]
 
     if selected_piece.is_a?(Nul_piece)
       raise NoPieceError.new "There's no piece at that location."
-      #also something for selecting opponent's pieces
     end
 
     if end_pos.min < 0 || end_pos.max > 7
@@ -78,9 +75,7 @@ class Board
       row.each_with_index do |cell, col_idx|
 
         if cell.color != player.color && cell.color != 'unique'
-          if cell.moves([row_idx,col_idx]).include?(king_pos)
-            return true
-          end
+          return true if cell.moves([row_idx,col_idx]).include?(king_pos)
         end
 
       end
@@ -90,6 +85,7 @@ class Board
   end
 
   def checkmate?(player,opponent)
+
     if in_check?(player,opponent)
       @grid.each_with_index do |row, row_idx|
         row.each_with_index do |cell, col_idx|
@@ -101,9 +97,11 @@ class Board
         end
       end
       return true
+
     else
       return false
     end
+
   end
 
   def deep_dup
@@ -120,6 +118,21 @@ class Board
     end
 
     return new_board
+  end
+
+  def pawn_promotion
+    @grid[0].each_with_index do |cell, cell_idx|
+      if cell.class == Pawn
+        @grid[0][cell_idx] = Queen.new(cell.color, self)
+      end
+    end
+
+    @grid[7].each_with_index do |cell, cell_idx|
+      if cell.class == Pawn
+        @grid[7][cell_idx] = Queen.new(cell.color, self)
+      end
+    end
+
   end
 
 end

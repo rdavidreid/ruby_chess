@@ -4,9 +4,6 @@ require_relative 'manifest.rb'
 
 require 'colorize'
 
-# require_relative 'pieces/nul_piece'
-# require_relative 'pieces/rook'
-
 class Display
   include Cursorable
   attr_accessor :selected,  :highlighted_pos
@@ -14,13 +11,12 @@ class Display
 
   def initialize(board)
     @cursor_pos = [0,0]
-    @selected = nil             #array of coords
+    @selected = nil
     @highlighted_pos
     @board = board
   end
 
   def render
-    # system("clear")
     background_toggle = true
 
     @board.grid.each_with_index do |row, i|
@@ -38,13 +34,11 @@ class Display
         else
           print piece.icon.colorize(:color => :white, :background => :blue)
         end
+
         background_toggle = !background_toggle
       end
       puts ""
-
     end
-    nil
-
   end
 
 end
